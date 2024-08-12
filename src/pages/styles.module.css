@@ -1,0 +1,61 @@
+p {
+    color: var(--bg-sky-950) !important;
+}
+
+.form {
+    width: 100%;
+}
+
+.msgBtn {
+    background-color: var(--bg-sky-950)!important;
+}
+
+.discountBg,
+.categoryBg,
+.productsBg,
+.customerBg,
+.ordersBg {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100dvh;
+}
+
+.discountBg {
+    background-image: url("https://res.cloudinary.com/ceenobi/image/upload/f_auto/v1651495856/icons/download_wnlnic.jpg");
+}
+
+.categoryBg {
+    background-image: url("https://res.cloudinary.com/ceenobi/image/upload/q_auto/v1714642687/icons/download_ob90vy.webp");
+}
+
+.productsBg {
+    background-image: url("https://res.cloudinary.com/ceenobi/image/upload/f_auto,q_auto/v1714721950/icons/download_tprphb.jpg");
+}
+
+.ordersBg {
+    background-image: url("https://res.cloudinary.com/ceenobi/image/upload/v1715101111/icons/download_nl4fnn.jpg");
+}
+.customerBg {
+    background-image: url("https://res.cloudinary.com/ceenobi/image/upload/v1723390045/Fashion/download_odrd7i.jpg");
+}
+
+.ordersBgMini {
+    background-image: url("https://res.cloudinary.com/ceenobi/image/upload/v1715101111/icons/download_nl4fnn.jpg");
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.merchantBg {
+    background: linear-gradient(270deg, #aa67db, #0a3b60);
+    background-size: 400% 400%;
+    min-height: 100dvh;
+}
+
+@media (min-width: 768px) {
+    .form {
+        width: 350px !important;
+    }
+}

@@ -1,0 +1,74 @@
+* {
+  font-family: 'Outfit Variable', sans-serif;
+  text-decoration: none !important;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --bg-green-100: #1c956e;
+  --bg-teal-100: #f9fef6;
+  --bg-teal-200: #d7fdc8;
+  --bg-teal-300: #def5d5;
+  --bg-sky-950: #082f49;
+  --bg-sky-900: #21394a;
+  --bg-slate-50: #f8fafc;
+  --bg-slate-100: #f1f5f9;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--bg-slate-100);
+}
+
+.cursor {
+  cursor: pointer
+}
+
+.sidebar {
+  flex: 250px 0 0;
+  background-color: var(--bg-teal-100);
+}
+
+.outlet {
+  flex: 1;
+  background-color: var(--bg-slate-100);
+}
+
+button {
+  padding: 0.8em 1.2em !important;
+  font-family: inherit;
+  transition: border-color 0.25s !important;
+  border: none !important;
+}
+
+button:hover {
+  filter: brightness(80%) !important;
+  transition: 0.3s ease-in-out !important;
+}
+
+.active {
+  background-color: var(--bg-teal-200) !important;
+}
+
+.links:hover {
+  background-color: var(--bg-teal-300) !important;
+  transition: 0.3s ease-in-out !important;
+}
+
+.btns {
+  background-color: var(--bg-sky-950) !important;
+}
+
+textarea {
+  min-height: 250px !important;
+}
+
+.page-item .page-link {
+  color: var(--bg-sky-950) !important;
+}
+
+.page-link {
+  color: var(--bg-sky-950) !important;
+  background-color: var(--bg-slate-100) !important;
+  border: none;
+}

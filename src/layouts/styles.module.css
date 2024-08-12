@@ -1,0 +1,17 @@
+.authBg {
+    background-color: var(--bg-slate-50);
+    width: 100%;
+}
+
+.authBgInfo {
+    background-color: var(--bg-slate-100);
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+
+    .authBg,
+    .authBgInfo {
+        width: 50% !important;
+    }
+}
