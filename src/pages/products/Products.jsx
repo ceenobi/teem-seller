@@ -36,6 +36,7 @@ const Products = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.currentPage, page, setGetProducts]);
+  console.log(data);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Products = () => {
   const prevPage = itemsPerPage * (parseInt(page) - 1) > 0;
   const nextPage = itemsPerPage * (parseInt(page) - 1) + itemsPerPage < count;
   const firstPage = 1;
-  const lastPage = Math.ceil(count / itemsPerPage);
+  const lastPage = Math.ceil(getProducts.length / itemsPerPage);
 
   const handlePageChange = (type) => {
     const newPage = type === "prev" ? parseInt(page) - 1 : parseInt(page) + 1;

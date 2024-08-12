@@ -16,7 +16,7 @@ export default function Paginate({
         {" "}
         {itemsPerPage} Entries Per Page
       </span>
-      <Pagination size="sm">
+      <Pagination>
         <Pagination.First disabled={!prevPage} onClick={handleFirstPage} />
         <Pagination.Prev
           disabled={!prevPage}
@@ -26,7 +26,9 @@ export default function Paginate({
           {page}
         </Pagination.Item>
         <span className="mx-2 mt-1 fw-bold">of</span>
-        <Pagination.Item>{totalPages}</Pagination.Item>
+        <Pagination.Item>
+          {totalPages}
+        </Pagination.Item>
         <Pagination.Next
           disabled={!nextPage}
           onClick={() => handlePageChange("next")}

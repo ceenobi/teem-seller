@@ -7,21 +7,20 @@ const RootLayout = () => {
     <main>
       <div className="d-flex">
         <Sidebar />
-        <div className="outlet">
+        <Container fluid="xxl" className="p-0 outlet">
           <Nav />
-          <Container fluid="xl" className="p-0">
-            <div style={{ minHeight: "95vh" }}>
-              <Outlet />
+          <div style={{ minHeight: "95dvh" }}>
+            <Outlet />
+          </div>
+
+          <footer className="mx-4 py-2">
+            <hr />
+            <div className="d-flex align-items-center justify-content-between text-uppercase fw-bold">
+              <Texts text={<>&copy;Teem platform, inc</>} size="12px" />
+              <Texts text="documentation" size="12px" />
             </div>
-            <footer className="mx-4 py-2">
-              <hr />
-              <div className="d-flex align-items-center justify-content-between text-uppercase fw-bold">
-                <Texts text={<>&copy;Teem platform, inc</>} size="12px" />
-                <Texts text="documentation" size="12px" />
-              </div>
-            </footer>
-          </Container>
-        </div>
+          </footer>
+        </Container>
       </div>
     </main>
   );

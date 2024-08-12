@@ -48,35 +48,33 @@ const Categories = () => {
                   <Spinner animation="border" size="sm" />
                 </div>
               ) : (
-                <>
-                  <Table hover striped bordered responsive className="mt-5">
-                    <thead>
-                      <tr>
-                        <th>NAME</th>
-                        <th>DESCRIPTION</th>
-                        <th>ACTION</th>
+                <Table hover striped bordered responsive className="mt-5">
+                  <thead>
+                    <tr>
+                      <th>NAME</th>
+                      <th>DESCRIPTION</th>
+                      <th>ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getCategories.map(({ name, description, _id }) => (
+                      <tr key={_id}>
+                        <td>{name}</td>
+                        <td>{description}</td>
+                        <td>
+                          <Badge
+                            bg="danger"
+                            text="light"
+                            as={Link}
+                            to={`/categories/${_id}`}
+                          >
+                            VIEW
+                          </Badge>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {getCategories.map(({ name, description, _id }) => (
-                        <tr key={_id}>
-                          <td>{name}</td>
-                          <td>{description}</td>
-                          <td>
-                            <Badge
-                              bg="danger"
-                              text="light"
-                              as={Link}
-                              to={`/categories/${_id}`}
-                            >
-                              VIEW
-                            </Badge>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </>
+                    ))}
+                  </tbody>
+                </Table>
               )}
             </Page>
           ) : (

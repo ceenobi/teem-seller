@@ -10,7 +10,7 @@ const Nav = () => {
   return (
     <div className="bg-white">
       <Container
-        fluid="xl"
+        fluid="xxl"
         className="d-flex justify-content-between justify-content-lg-end align-items-center p-3"
       >
         {/* mobile */}

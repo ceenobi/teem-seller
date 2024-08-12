@@ -6,7 +6,7 @@ import { TiThMenu } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import Texts from "./Texts";
-import { pageLinks } from "@/utils";
+import { pageLinks, settingsLink } from "@/utils";
 import classnames from "classnames";
 import { IoLogOut } from "react-icons/io5";
 
@@ -77,7 +77,7 @@ const Drawer = () => {
                 variant="none"
                 className={classnames({
                   "d-flex align-items-center gap-2 mb-1 w-100 text-uppercase fw-medium": true,
-                  "rounded-3 border-0 active px-2 py-3 fw-bold":
+                  "rounded-3 border-0 activeSidebar px-2 py-3 fw-bold":
                     location.pathname === path,
                   "links px-2 py-3 rounded-3": location.pathname !== path,
                 })}
@@ -85,6 +85,27 @@ const Drawer = () => {
               >
                 <Icon size="1.5rem" color="#21394a" />
                 <span>{name}</span>
+              </Button>
+            ))}
+          </div>
+          <hr/>
+          <div>
+            {settingsLink.map(({ id, label, path }) => (
+              <Button
+                as={Link}
+                to={`${path}`}
+                key={id}
+                size="sm"
+                variant="none"
+                className={classnames({
+                  "d-flex align-items-center gap-2 mb-1 w-100 text-uppercase fw-medium": true,
+                  "rounded-3 border-0 activeSidebar px-2 py-3 fw-bold":
+                    location.pathname === path,
+                  "links px-2 py-3 rounded-3": location.pathname !== path,
+                })}
+                onClick={handleClose}
+              >
+                {label}
               </Button>
             ))}
           </div>

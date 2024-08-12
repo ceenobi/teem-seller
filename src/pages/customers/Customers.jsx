@@ -45,7 +45,7 @@ const Customers = () => {
   const nextPage =
     itemsPerPage * (parseInt(customerPage) - 1) + itemsPerPage < count;
   const firstPage = 1;
-  const lastPage = Math.ceil(count / itemsPerPage);
+  const lastPage = Math.ceil(getCustomers.length / itemsPerPage);
 
   const handlePageChange = (type) => {
     const newPage =

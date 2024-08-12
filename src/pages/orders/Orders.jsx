@@ -53,7 +53,7 @@ const Orders = () => {
   const nextPage =
     itemsPerPage * (parseInt(orderPage) - 1) + itemsPerPage < count;
   const firstPage = 1;
-  const lastPage = Math.ceil(count / itemsPerPage);
+   const lastPage = Math.ceil(getOrders.length / itemsPerPage);
 
   const handlePageChange = (type) => {
     const newPage =
