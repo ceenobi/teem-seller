@@ -94,7 +94,7 @@ const Add = () => {
       );
       if (status === 201) {
         toast.success(data.msg);
-        setGetProducts([data.product, ...getProducts].slice(0, 10));
+        setGetProducts([data.product, ...getProducts].slice(0, 11));
         navigate("/products");
       }
     } catch (error) {

@@ -20,7 +20,10 @@ const NoProducts = () => {
             style={{ backgroundColor: "var(--bg-green-100)" }}
           />
         </div>
-        <div className="mt-5 d-flex justify-content-center align-items-center">
+        <div
+          className="mt-5 d-flex justify-content-center align-items-center"
+          style={{ minHeight: "50dvh" }}
+        >
           <CardBox style={{ maxWidth: "450px", opacity: "0.9" }}>
             <Texts text="Add your products" size="1.2rem" className="fw-bold" />
             <Texts

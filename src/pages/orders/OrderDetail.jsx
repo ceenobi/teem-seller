@@ -1,23 +1,18 @@
 import { orderService } from "@/api";
-import {
-  ActionButton,
-  CardBox,
-  ModalBox,
-  Page,
-  Texts,
-} from "@/components";
+import { ActionButton, CardBox, ModalBox, Page, Texts } from "@/components";
 import { useStore } from "@/hooks";
-import { formatCurrency, formatDate, handleError, orderProgress } from "@/utils";
+import {
+  formatCurrency,
+  formatDate,
+  handleError,
+  orderProgress,
+} from "@/utils";
 import classnames from "classnames";
 import React, { useEffect, useMemo, useState } from "react";
 import { Badge, Col, Row, Spinner } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import {
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { format } from "timeago.js";
 import { GrMoney } from "react-icons/gr";
@@ -33,14 +28,15 @@ const OrderDetail = () => {
   const navigation = useNavigation();
   const { data } = useLoaderData();
   const orderDetails = useMemo(() => data, [data]);
-  const [isPaid, setIsPaid] = useState(orderDetails.isPaid);
-  const [isDelivered, setIsDelivered] = useState(orderDetails.isDelivered);
-  const { merchant, token, setGetOrders, getOrders } = useStore();
+  const { merchant, token, setGetOrders, getOrderDetail, setGetOrderDetail } =
+    useStore();
+  const [isPaid, setIsPaid] = useState(getOrderDetail?.isPaid);
+  const [isDelivered, setIsDelivered] = useState(getOrderDetail?.isDelivered);
 
   useEffect(() => {
-    setGetOrders(orderDetails);
+    setGetOrderDetail(orderDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderDetails]);
+  }, []);
 
   const updateOrder = async () => {
     const credentials = {
@@ -52,14 +48,27 @@ const OrderDetail = () => {
     try {
       const { status, data } = await orderService.updateAnOrderStatus(
         merchant.merchantCode,
-        orderDetails._id,
+        getOrderDetail._id,
         credentials,
         token
       );
       if (status === 200) {
         toast.success(data.msg);
         setShowModal(false);
-        // setData(data.updatedOrder);
+        setGetOrderDetail(data.updatedOrder);
+        setGetOrders((prevData) => {
+          const updatedOrders = [
+            ...(Array.isArray(prevData)
+              ? prevData.filter((order) => order._id !== data.updatedOrder._id)
+              : []),
+            data.updatedOrder,
+          ];
+          return [
+            ...updatedOrders.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            ),
+          ];
+        });
       }
     } catch (error) {
       handleError(error);
@@ -72,7 +81,10 @@ const OrderDetail = () => {
     <>
       <Helmet>
         <title>Order detail</title>
-        <meta name="description" content="See details of this order and update the status." />
+        <meta
+          name="description"
+          content="See details of this order and update the status."
+        />
       </Helmet>
       <Page>
         <Texts
@@ -92,7 +104,7 @@ const OrderDetail = () => {
           </div>
         ) : (
           <>
-            {orderDetails && (
+            {getOrderDetail && (
               <Row>
                 <Col lg={7} xl={8}>
                   <CardBox>
@@ -118,9 +130,9 @@ const OrderDetail = () => {
                         />
                         <Texts
                           text={
-                            orderDetails?.reference
-                              ? orderDetails?.reference
-                              : orderDetails?._id
+                            getOrderDetail?.reference
+                              ? getOrderDetail?.reference
+                              : getOrderDetail?._id
                           }
                           size="14px"
                           className="fw-semibold text-uppercase"
@@ -135,8 +147,8 @@ const OrderDetail = () => {
                         <Texts
                           text={
                             <>
-                              {formatDate(orderDetails?.createdAt)}
-                              &nbsp;@&nbsp;{format(orderDetails?.createdAt)}
+                              {formatDate(getOrderDetail?.createdAt)}
+                              &nbsp;@&nbsp;{format(getOrderDetail?.createdAt)}
                             </>
                           }
                           size="12px"
@@ -145,7 +157,7 @@ const OrderDetail = () => {
                       </div>
                     </div>
                     <Row className="rounded-3 mt-4 mx-0 py-2 border">
-                      {orderDetails?.orderItems?.map((item) => (
+                      {getOrderDetail?.orderItems?.map((item) => (
                         <React.Fragment key={item._id}>
                           <Col md={6}>
                             <Texts
@@ -194,7 +206,7 @@ const OrderDetail = () => {
                               )}
                               size="12px"
                               className={`fw-semibold ${
-                                orderDetails.isPaid !== true
+                                getOrderDetail.isPaid !== true
                                   ? "text-danger"
                                   : "text-success"
                               }`}
@@ -213,7 +225,7 @@ const OrderDetail = () => {
                         <Texts
                           text={formatCurrency(
                             merchant?.currency,
-                            orderDetails?.subTotal
+                            getOrderDetail?.subTotal
                           )}
                           size="15px"
                           className="fw-medium"
@@ -229,7 +241,7 @@ const OrderDetail = () => {
                         <Texts
                           text={formatCurrency(
                             merchant?.currency,
-                            orderDetails?.shippingFee
+                            getOrderDetail?.shippingFee
                           )}
                           size="15px"
                           className="fw-medium"
@@ -245,7 +257,7 @@ const OrderDetail = () => {
                         <Texts
                           text={formatCurrency(
                             merchant?.currency,
-                            orderDetails?.discount
+                            getOrderDetail?.discount
                           )}
                           size="15px"
                           className="fw-medium"
@@ -257,7 +269,7 @@ const OrderDetail = () => {
                         <Texts
                           text={formatCurrency(
                             merchant?.currency,
-                            orderDetails?.taxPrice
+                            getOrderDetail?.taxPrice
                           )}
                           size="15px"
                           className="fw-medium"
@@ -269,11 +281,11 @@ const OrderDetail = () => {
                         <Texts
                           text={formatCurrency(
                             merchant?.currency,
-                            orderDetails?.total
+                            getOrderDetail?.total
                           )}
                           size="15px"
                           className={`fw-bold ${
-                            orderDetails.isPaid !== true
+                            getOrderDetail.isPaid !== true
                               ? "text-danger"
                               : "text-success"
                           }`}
@@ -291,8 +303,8 @@ const OrderDetail = () => {
                         />
                         <Texts
                           text={
-                            orderDetails?.paidAt
-                              ? formatDate(orderDetails?.paidAt)
+                            getOrderDetail?.paidAt
+                              ? formatDate(getOrderDetail?.paidAt)
                               : "Not paid"
                           }
                           size="12px"
@@ -307,10 +319,11 @@ const OrderDetail = () => {
                         />
                         <Texts
                           text={
-                            orderDetails?.deliveredAt ? (
+                            getOrderDetail?.deliveredAt ? (
                               <>
-                                {formatDate(orderDetails?.deliveredAt)}
-                                &nbsp;@&nbsp;{format(orderDetails?.deliveredAt)}
+                                {formatDate(getOrderDetail?.deliveredAt)}
+                                &nbsp;@&nbsp;
+                                {format(getOrderDetail?.deliveredAt)}
                               </>
                             ) : (
                               "Not delivered"
@@ -332,14 +345,15 @@ const OrderDetail = () => {
                         className="fw-bold mb-0"
                       />
                       <Texts
-                        text={orderDetails?.orderStatus}
+                        text={getOrderDetail?.orderStatus}
                         size="12px"
                         className={classnames({
                           "fw-bold rounded-4 text-uppercase text-white text-center p-2 mb-0": true,
-                          "bg-warning": orderDetails?.orderStatus === "open",
-                          "bg-info": orderDetails?.orderStatus === "processing",
+                          "bg-warning": getOrderDetail?.orderStatus === "open",
+                          "bg-info":
+                            getOrderDetail?.orderStatus === "processing",
                           "bg-success":
-                            orderDetails?.orderStatus === "fulfilled",
+                            getOrderDetail?.orderStatus === "fulfilled",
                         })}
                         width="125px"
                       />
@@ -353,12 +367,12 @@ const OrderDetail = () => {
                       />
                       <Texts
                         text={
-                          orderDetails?.isDelivered
+                          getOrderDetail?.isDelivered
                             ? "Delivered"
                             : "Not Delivered"
                         }
                         size="12px"
-                        className={`fw-bold rounded-4 text-uppercase text-white text-center p-2 mb-0 ${orderDetails?.isDelivered ? "bg-success" : "bg-warning"}`}
+                        className={`fw-bold rounded-4 text-uppercase text-white text-center p-2 mb-0 ${getOrderDetail?.isDelivered ? "bg-success" : "bg-warning"}`}
                         width="125px"
                       />
                     </div>
@@ -370,9 +384,9 @@ const OrderDetail = () => {
                         className="fw-bold mb-0"
                       />
                       <Texts
-                        text={orderDetails?.isPaid ? "paid" : "not paid"}
+                        text={getOrderDetail?.isPaid ? "paid" : "not paid"}
                         size="12px"
-                        className={`fw-bold rounded-4 text-uppercase text-white text-center p-2 mb-0 ${orderDetails?.isPaid ? "bg-success" : "bg-warning"}`}
+                        className={`fw-bold rounded-4 text-uppercase text-white text-center p-2 mb-0 ${getOrderDetail?.isPaid ? "bg-success" : "bg-warning"}`}
                         width="125px"
                       />
                     </div>
@@ -384,7 +398,7 @@ const OrderDetail = () => {
                       className="fw-bold text-uppercase"
                     />
                     <Texts
-                      text={orderDetails?.paymentMethod}
+                      text={getOrderDetail?.paymentMethod}
                       size="15px"
                       className="fw-bold text-uppercase"
                     />
@@ -403,11 +417,11 @@ const OrderDetail = () => {
                     <Texts
                       text={
                         <>
-                          {orderDetails?.shippingDetails?.address}
+                          {getOrderDetail?.shippingDetails?.address}
                           <br />
-                          {orderDetails?.shippingDetails?.state}
+                          {getOrderDetail?.shippingDetails?.state}
                           <br />
-                          {orderDetails?.shippingDetails?.country}
+                          {getOrderDetail?.shippingDetails?.country}
                         </>
                       }
                       size="15px"
@@ -423,9 +437,9 @@ const OrderDetail = () => {
                     <Texts
                       text={
                         <>
-                          <b>{orderDetails?.shippingDetails?.fullname}</b>
+                          <b>{getOrderDetail?.shippingDetails?.fullname}</b>
                           <br />
-                          {orderDetails?.shippingDetails?.phone}
+                          {getOrderDetail?.shippingDetails?.phone}
                         </>
                       }
                       size="15px"
@@ -450,30 +464,30 @@ const OrderDetail = () => {
             size="12px"
             className="fw-bold text-uppercase"
           />
-          <div className="d-flex flex-wrap justify-content-between align-items-center small text-center">
+          <div className="d-flex flex-wrap justify-content-between align-items-center small">
             <div>
               <BsFillInfoSquareFill size="1.8rem" />
               <Texts
-                text={orderDetails.orderStatus}
+                text={getOrderDetail?.orderStatus}
                 size="14px"
                 className={classnames({
                   "fw-bold text-uppercase": true,
-                  "text-warning": orderDetails.orderStatus === "open",
-                  "text-info": orderDetails.orderStatus === "processing",
-                  "text-success": orderDetails.orderStatus === "fulfilled",
+                  "text-warning": getOrderDetail?.orderStatus === "open",
+                  "text-info": getOrderDetail?.orderStatus === "processing",
+                  "text-success": getOrderDetail?.orderStatus === "fulfilled",
                 })}
               />
             </div>
-            <div className="d-flex gap-4 align-items-center">
+            <div className="d-flex gap-4 align-items-center text-center">
               {orderProgress.map(({ id, Icon, name }) => (
                 <div
                   key={id}
                   className={classnames({
                     "fw-semibold cursor": true,
-                    "orderIcon p-1 rounded-3 text-uppercase fw-bold":
+                    "text-warning p-1 rounded-3 text-uppercase fw-bold":
                       orderStatus === name,
                     "text-success p-1 rounded-3 text-uppercase fw-bold":
-                      orderDetails.orderStatus === name,
+                      getOrderDetail?.orderStatus === name,
                   })}
                   onClick={() => setOrderStatus(name)}
                 >
@@ -495,9 +509,9 @@ const OrderDetail = () => {
             <div>
               <GrMoney size="1.8rem" />
               <Texts
-                text={orderDetails.isPaid ? "Paid" : "Not Paid"}
+                text={getOrderDetail?.isPaid ? "Paid" : "Not Paid"}
                 size="14px"
-                className={`fw-bold text-uppercase ${orderDetails.isPaid ? "text-success" : "text-danger"}`}
+                className={`fw-bold text-uppercase ${getOrderDetail?.isPaid ? "text-success" : "text-danger"}`}
               />
             </div>
           </div>
@@ -533,9 +547,11 @@ const OrderDetail = () => {
             <div>
               <TbTruckDelivery size="1.8rem" />
               <Texts
-                text={orderDetails.isDelivered ? "Delivered" : "Not Delivered"}
+                text={
+                  getOrderDetail?.isDelivered ? "Delivered" : "Not Delivered"
+                }
                 size="14px"
-                className={`fw-bold text-uppercase ${orderDetails.isDelivered ? "text-success" : "text-danger"}`}
+                className={`fw-bold text-uppercase ${getOrderDetail?.isDelivered ? "text-success" : "text-danger"}`}
               />
             </div>
           </div>

@@ -20,7 +20,10 @@ const NoCategory = () => {
             style={{ backgroundColor: "var(--bg-green-100)" }}
           />
         </div>
-        <div className="mt-5 d-flex justify-content-center align-items-center">
+        <div
+          className="mt-5 d-flex justify-content-center align-items-center"
+          style={{ minHeight: "50dvh" }}
+        >
           <CardBox style={{ maxWidth: "450px", opacity: "0.9" }}>
             <Texts
               text="Add categories for your products"

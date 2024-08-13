@@ -17,7 +17,7 @@
 
 body {
   min-height: 100dvh;
-  background-color: var(--bg-slate-100);
+  background-color: var(--bg-slate-100) !important;
 }
 
 .cursor {

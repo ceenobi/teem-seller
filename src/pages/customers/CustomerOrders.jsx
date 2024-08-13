@@ -302,7 +302,7 @@ const CustomerOrders = () => {
                   className="mb-2"
                 />
                 <Texts
-                  text="DELETE PRODUCT"
+                  text="DELETE CUSTOMER"
                   className="text-center fw-bold bg-danger p-2 text-white cursor"
                   size="12px"
                   onClick={() => setShowModal(true)}

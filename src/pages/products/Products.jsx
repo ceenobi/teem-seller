@@ -36,7 +36,6 @@ const Products = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.currentPage, page, setGetProducts]);
-  console.log(data);
 
   const location = useLocation();
   const navigate = useNavigate();

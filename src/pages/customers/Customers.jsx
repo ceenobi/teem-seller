@@ -31,10 +31,10 @@ const Customers = () => {
 
   useEffect(() => {
     if (customers.currentPage === customerPage) {
-      setGetCustomers(data?.customers);
+      setGetCustomers(customers?.customers);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customers.currentPage, customerPage, setCustomerPage]);
+  }, [customers.currentPage, customerPage, setGetCustomers]);
 
   const location = useLocation();
   const navigate = useNavigate();

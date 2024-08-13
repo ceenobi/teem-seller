@@ -39,7 +39,7 @@ const Orders = () => {
 
   useEffect(() => {
     if (orders.currentPage === orderPage) {
-      setGetOrders(data?.orders);
+      setGetOrders(orders?.orders);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders.currentPage, orderPage, setGetOrders]);
@@ -53,7 +53,7 @@ const Orders = () => {
   const nextPage =
     itemsPerPage * (parseInt(orderPage) - 1) + itemsPerPage < count;
   const firstPage = 1;
-   const lastPage = Math.ceil(getOrders.length / itemsPerPage);
+   const lastPage = Math.ceil(getOrders?.length / itemsPerPage);
 
   const handlePageChange = (type) => {
     const newPage =
@@ -81,7 +81,7 @@ const Orders = () => {
       </Helmet>
       {location.pathname === "/orders" ? (
         <div>
-          {getOrders.length <= 0 ? (
+          {getOrders?.length > 0 ? (
             <>
               <div
                 className={`d-none d-md-flex flex-column justify-content-center align-items-center ${styles.ordersBgMini} `}

@@ -9,7 +9,10 @@ const NoCustomer = () => {
     <div className={`${styles.customerBg} p-0`}>
       <Page>
         <Headings text="Customers" size="1.5rem" />
-        <div className="mt-5 d-flex justify-content-center align-items-center">
+        <div
+          className="mt-5 d-flex justify-content-center align-items-center"
+          style={{ minHeight: "50dvh" }}
+        >
           <CardBox style={{ maxWidth: "450px", opacity: "0.9" }}>
             <Texts
               text="See your customers."

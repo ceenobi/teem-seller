@@ -9,6 +9,7 @@ const Error = () => {
   const errorMessage =
     error?.response?.data?.message ||
     error?.response?.data?.error ||
+    error?.message ||
     "An error has occurred while trying to fetch data";
 
   if (isRouteErrorResponse(error)) {

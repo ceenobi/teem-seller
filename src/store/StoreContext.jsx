@@ -17,6 +17,7 @@ export const StoreProvider = ({ children }) => {
   const [getDiscounts, setGetDiscounts] = useState([]);
   const [getCustomers, setGetCustomers] = useState([]);
   const [getOrders, setGetOrders] = useState([]);
+  const [getOrderDetail, setGetOrderDetail] = useState(null);
   const [page, setPage] = useState(1);
   const [customerPage, setCustomerPage] = useState(1);
   const [orderPage, setOrderPage] = useState(1);
@@ -148,6 +149,8 @@ export const StoreProvider = ({ children }) => {
     setGetOrders,
     orderPage,
     setOrderPage,
+    getOrderDetail,
+    setGetOrderDetail,
   };
 
   return (

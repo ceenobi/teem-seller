@@ -12,7 +12,6 @@ const RootLayout = () => {
           <div style={{ minHeight: "95dvh" }}>
             <Outlet />
           </div>
-
           <footer className="mx-4 py-2">
             <hr />
             <div className="d-flex align-items-center justify-content-between text-uppercase fw-bold">
