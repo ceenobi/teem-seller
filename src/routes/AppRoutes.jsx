@@ -72,6 +72,7 @@ const AppRoutes = () => {
         {
           index: true,
           element: <Home />,
+          errorElement: <Error />,
           loader: async () => {
             if (!merchant) {
               return null;
@@ -101,6 +102,7 @@ const AppRoutes = () => {
               <Tax />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () =>
             await taxService.getAllTax(merchant?.merchantCode),
           children: [

@@ -42,4 +42,4 @@ export default {
   updateDiscount,
   getAllDiscounts,
   deleteDiscount,
-};
+}

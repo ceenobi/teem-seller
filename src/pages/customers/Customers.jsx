@@ -4,7 +4,7 @@ import { formatCurrency } from "@/utils";
 import { useEffect, useMemo } from "react";
 import { Badge, Spinner, Table } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+// import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   Link,
   Outlet,
@@ -98,7 +98,6 @@ const Customers = () => {
                           _id,
                           username,
                           email,
-                          photo,
                           totalOrders,
                           totalSpent,
                         }) => (
@@ -109,14 +108,14 @@ const Customers = () => {
                             title="click to see more"
                           >
                             <td className="d-flex gap-2 align-items-center">
-                              <LazyLoadImage
+                              {/* <LazyLoadImage
                                 effect="blur"
                                 src={photo}
                                 alt={username}
                                 width={35}
                                 height={35}
                                 className="object-fit-cover rounded-circle"
-                              />
+                              /> */}
                               <div>{username}</div>
                             </td>
                             <td>{email}</td>

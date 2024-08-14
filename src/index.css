@@ -23,6 +23,9 @@ body {
 .cursor {
   cursor: pointer
 }
+.noCursor {
+  cursor: not-allowed;
+}
 
 .sidebar {
   flex: 250px 0 0;

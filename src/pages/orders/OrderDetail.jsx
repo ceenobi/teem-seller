@@ -509,7 +509,9 @@ const OrderDetail = () => {
             <div>
               <GrMoney size="1.8rem" />
               <Texts
-                text={getOrderDetail?.isPaid ? "Paid" : "Not Paid"}
+                text={
+                  getOrderDetail?.isPaid ? "Paid" : isPaid ? "Paid" : "Not Paid"
+                }
                 size="14px"
                 className={`fw-bold text-uppercase ${getOrderDetail?.isPaid ? "text-success" : "text-danger"}`}
               />
@@ -523,7 +525,13 @@ const OrderDetail = () => {
             />
             <div>
               <ActionButton
-                text={isPaid ? "Paid" : "Not Paid"}
+                text={
+                  getOrderDetail?.isPaid
+                    ? "Paid"
+                    : isPaid
+                      ? "Paid"
+                      : "Not Paid"
+                }
                 size="sm"
                 className={classnames({
                   "fw-bold cursor p-2 rounded-2 text-white mx-auto": true,
@@ -532,6 +540,7 @@ const OrderDetail = () => {
                 })}
                 style={{ width: "110px" }}
                 onClick={() => setIsPaid((prev) => !prev)}
+                disabled={getOrderDetail?.isPaid}
               />
             </div>
           </div>
@@ -548,7 +557,11 @@ const OrderDetail = () => {
               <TbTruckDelivery size="1.8rem" />
               <Texts
                 text={
-                  getOrderDetail?.isDelivered ? "Delivered" : "Not Delivered"
+                  getOrderDetail?.isDelivered
+                    ? "Delivered"
+                    : isDelivered
+                      ? "Delivered"
+                      : "Not Delivered"
                 }
                 size="14px"
                 className={`fw-bold text-uppercase ${getOrderDetail?.isDelivered ? "text-success" : "text-danger"}`}
@@ -563,7 +576,13 @@ const OrderDetail = () => {
             />
             <div>
               <ActionButton
-                text={isDelivered ? "Delivered" : "Not Delivered"}
+                text={
+                  getOrderDetail?.isDelivered
+                    ? "Delivered"
+                    : isDelivered
+                      ? "Delivered"
+                      : "Not Delivered"
+                }
                 size="sm"
                 className={classnames({
                   "fw-bold cursor p-2 rounded-2 text-white mx-auto": true,
@@ -572,6 +591,7 @@ const OrderDetail = () => {
                 })}
                 style={{ width: "110px" }}
                 onClick={() => setIsDelivered((prev) => !prev)}
+                disabled={getOrderDetail?.isDelivered}
               />
             </div>
           </div>
@@ -593,6 +613,11 @@ const OrderDetail = () => {
               backgroundColor: "var(--bg-sky-950)",
             }}
             onClick={updateOrder}
+            disabled={
+              getOrderDetail?.isPaid &&
+              getOrderDetail?.isDelivered &&
+              getOrderDetail?.orderStatus === "fulfilled"
+            }
           />
         </div>
       </ModalBox>

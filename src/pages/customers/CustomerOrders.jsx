@@ -13,7 +13,7 @@ import React, { useMemo, useState } from "react";
 import { Badge, Col, Row, Spinner, Table } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 import { IoMdArrowBack } from "react-icons/io";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+// import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   Link,
   useLoaderData,
@@ -90,12 +90,12 @@ const CustomerOrders = () => {
             <Col md={7} xl={8}>
               <CardBox>
                 <div className="d-flex gap-2 align-items-center mb-4">
-                  <LazyLoadImage
+                  {/* <LazyLoadImage
                     src={customer?.photo}
                     alt={customer?.username}
                     style={{ width: "45px", height: "45px" }}
                     className="object-fit-cover rounded-circle"
-                  />
+                  /> */}
                   <div>
                     <Texts
                       text={customer?.username}
