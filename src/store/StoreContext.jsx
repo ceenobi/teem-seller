@@ -109,7 +109,7 @@ export const StoreProvider = ({ children }) => {
         refreshUserToken();
         refresh();
       },
-      2 * 60 * 1000
+      6 * 60 * 1000
     );
 
     refresh();
