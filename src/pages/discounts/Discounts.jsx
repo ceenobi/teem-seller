@@ -100,7 +100,7 @@ const Discounts = () => {
                           </td>
                           <td>
                             <Badge
-                              bg="danger"
+                              bg="success"
                               text="light"
                               as={Link}
                               to={`/discounts/${_id}`}

@@ -67,11 +67,12 @@ const AppRoutes = () => {
           </PrivateRoutes>
         </Suspense>
       ),
-      errorElement: <Error />,
+
       children: [
         {
           index: true,
           element: <Home />,
+          errorElement: <Error />,
           loader: async () => {
             if (!merchant) {
               return null;
@@ -101,6 +102,7 @@ const AppRoutes = () => {
               <Tax />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () =>
             await taxService.getAllTax(merchant?.merchantCode),
           children: [
@@ -122,6 +124,7 @@ const AppRoutes = () => {
               <Shipping />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
               toast.error("Unauthorized! You are not a merchant yet.", {
@@ -150,6 +153,7 @@ const AppRoutes = () => {
               <Categories />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
               toast.error("Unauthorized! You are not a merchant yet.", {
@@ -184,6 +188,7 @@ const AppRoutes = () => {
               <Products />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
               toast.error("Unauthorized! You are not a merchant yet.", {
@@ -216,6 +221,7 @@ const AppRoutes = () => {
               <Discounts />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
               toast.error("Unauthorized! You are not a merchant yet.", {
@@ -247,6 +253,7 @@ const AppRoutes = () => {
               <Customers />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
               toast.error("Unauthorized! You are not a merchant yet.", {
@@ -278,6 +285,7 @@ const AppRoutes = () => {
               <Orders />
             </MerchantRoutes>
           ),
+          errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
               toast.error("Unauthorized! You are not a merchant yet.", {

@@ -77,7 +77,10 @@ const Orders = () => {
     <>
       <Helmet>
         <title>View all orders</title>
-        <meta name="description" content="Your orders page, see who is buying." />
+        <meta
+          name="description"
+          content="Your orders page, see who is buying."
+        />
       </Helmet>
       {location.pathname === "/orders" ? (
         <div>
@@ -168,7 +171,7 @@ const Orders = () => {
                               </td>
                               <td>
                                 <Badge
-                                  bg="danger"
+                                  bg="success"
                                   text="light"
                                   as={Link}
                                   to={`/orders/${_id}`}

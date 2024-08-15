@@ -63,7 +63,7 @@ const Categories = () => {
                         <td>{description}</td>
                         <td>
                           <Badge
-                            bg="danger"
+                            bg="success"
                             text="light"
                             as={Link}
                             to={`/categories/${_id}`}

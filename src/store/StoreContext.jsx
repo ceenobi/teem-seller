@@ -70,7 +70,7 @@ export const StoreProvider = ({ children }) => {
   const refreshUserToken = useCallback(async () => {
     try {
       const refreshTokenResponse = await userService.getRefreshToken(
-        loggedInUser?._id
+        loggedInUser?.username
       );
       const accessTokenResponse = await userService.refreshToken({
         refreshToken: refreshTokenResponse.data.refreshToken,
@@ -79,10 +79,10 @@ export const StoreProvider = ({ children }) => {
       getUser();
     } catch (error) {
       console.error(error);
-      setToken(null);
-      setMerchant(null);
+      // setToken(null);
+      // setMerchant(null);
     }
-  }, [loggedInUser?._id, setToken, getUser, setMerchant]);
+  }, [loggedInUser?.username, setToken, getUser]);
 
   useEffect(() => {
     getUser();
@@ -109,7 +109,7 @@ export const StoreProvider = ({ children }) => {
         refreshUserToken();
         refresh();
       },
-      6 * 60 * 1000
+      2 * 60 * 1000
     );
 
     refresh();

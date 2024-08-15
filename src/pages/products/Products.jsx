@@ -148,7 +148,7 @@ const Products = () => {
                             </td>
                             <td>
                               <Badge
-                                bg="danger"
+                                bg="black"
                                 text="light"
                                 as={Link}
                                 to={`/products/${slug}`}

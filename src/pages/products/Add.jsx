@@ -84,7 +84,6 @@ const Add = () => {
       slug: formData.slug,
       brand: formData.brand,
       isActive: formData.isActive,
-      inStock: formData.inStock,
     };
     try {
       const { status, data } = await productService.createProduct(
@@ -203,32 +202,6 @@ const Add = () => {
                       errors={errors.price}
                       placeholder="Enter product price"
                       className="mb-3 w-100"
-                    />
-                    <Controller
-                      name="inStock"
-                      control={control}
-                      render={({ field }) => (
-                        <div className="d-flex gap-3 w-100">
-                          <span className="fw-bold small">
-                            {field.value ? "ITEM IN STOCK" : "OUT OF STOCK"}
-                          </span>
-                          {field.value ? (
-                            <FaToggleOn
-                              size="25px"
-                              onClick={() => field.onChange(false)}
-                              className="cursor text-success"
-                              role="button"
-                            />
-                          ) : (
-                            <FaToggleOff
-                              size="25px"
-                              onClick={() => field.onChange(true)}
-                              className="cursor"
-                              role="button"
-                            />
-                          )}
-                        </div>
-                      )}
                     />
                   </div>
                 </CardBox>

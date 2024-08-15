@@ -94,13 +94,7 @@ const Customers = () => {
                     </thead>
                     <tbody>
                       {getCustomers.map(
-                        ({
-                          _id,
-                          username,
-                          email,
-                          totalOrders,
-                          totalSpent,
-                        }) => (
+                        ({ _id, username, email, totalOrders, totalSpent }) => (
                           <tr
                             key={_id}
                             className="small cursor fw-medium"
@@ -125,7 +119,7 @@ const Customers = () => {
                             </td>
                             <td>
                               <Badge
-                                bg="danger"
+                                bg="success"
                                 text="light"
                                 as={Link}
                                 to={`/customers/${username}`}
