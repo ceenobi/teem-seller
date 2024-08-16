@@ -18,6 +18,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { IoCloseCircle } from "react-icons/io5";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
+import SimpleMDE from "react-simplemde-editor";
 
 const Add = () => {
   const [selectedImage, setSelectedImage] = useState([]);
@@ -75,20 +76,10 @@ const Add = () => {
   };
 
   const onFormSubmit = async (formData) => {
-    const credentials = {
-      image: selectedImage,
-      name: formData.name,
-      description: formData.description,
-      category: formData.category,
-      price: formData.price,
-      slug: formData.slug,
-      brand: formData.brand,
-      isActive: formData.isActive,
-    };
     try {
       const { status, data } = await productService.createProduct(
         merchant.merchantCode,
-        credentials,
+        formData,
         token
       );
       if (status === 201) {
@@ -105,7 +96,10 @@ const Add = () => {
     <>
       <Helmet>
         <title>Add a new product</title>
-        <meta name="description" content="Start selling by adding your products" />
+        <meta
+          name="description"
+          content="Start selling by adding your products"
+        />
       </Helmet>
       <Page>
         <Texts
@@ -176,7 +170,33 @@ const Add = () => {
                   </div>
                   <div className="mb-3">
                     <Texts text="DESCRIPTION" size="12px" className="fw-bold" />
-                    <FormInputs
+                    <Controller
+                      name="description"
+                      control={control}
+                      rules={{ required: "Description is required" }}
+                      render={({ field }) => (
+                        <>
+                          <SimpleMDE
+                            placeholder="Description"
+                            {...field}
+                            isInvalid={!!errors.description}
+                          />
+                          <Form.Text id="description" muted className="fw-bold">
+                            A description about your product.
+                          </Form.Text>
+                          <br />
+                          <span
+                            type="invalid"
+                            className="text-start text-danger small"
+                          >
+                            {errors.description
+                              ? errors.description.message
+                              : ""}
+                          </span>
+                        </>
+                      )}
+                    />
+                    {/* <FormInputs
                       as="textarea"
                       id="description"
                       label="Description"
@@ -186,7 +206,7 @@ const Add = () => {
                       register={register}
                       validateFields={validateFields?.description}
                       errors={errors.description}
-                    />
+                    /> */}
                   </div>
                 </CardBox>
                 <CardBox>
@@ -208,7 +228,7 @@ const Add = () => {
                 <CardBox>
                   <Texts text="IMAGE GALLERY" size="12px" className="fw-bold" />
                   <div className="position-relative rounded-1 bg-secondary-subtle px-4 py-5">
-                    <div className="d-flex align-items-center justify-content-center gap-2 bg-white p-3 shadow-sm w-50 mx-auto">
+                    <div className="d-flex align-items-center justify-content-center gap-2 bg-white p-3 shadow-sm mx-auto">
                       <FaCloudUploadAlt size="30px" />
                       <span className="fw-medium">
                         {selectedImage?.length > 0

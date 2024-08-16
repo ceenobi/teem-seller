@@ -9,7 +9,7 @@ import {
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { Form, Col, Row, Image, Spinner } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { handleError, validateFields } from "@/utils";
 import { FaImage } from "react-icons/fa";
 import { useState } from "react";
@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { categoryService } from "@/api";
 import { useStore } from "@/hooks";
 import { Helmet } from "react-helmet-async";
+import SimpleMDE from "react-simplemde-editor";
 
 const Add = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -26,6 +27,7 @@ const Add = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm();
   const { merchant, token, setGetCategories, getCategories } = useStore();
@@ -46,15 +48,10 @@ const Add = () => {
   };
 
   const onFormSubmit = async (formData) => {
-    const credentials = {
-      image: selectedImage,
-      name: formData.name,
-      description: formData.description,
-    };
     try {
       const { status, data } = await categoryService.createCategory(
         merchant?.merchantCode,
-        credentials,
+        formData,
         token
       );
       if (status === 201) {
@@ -71,7 +68,10 @@ const Add = () => {
     <>
       <Helmet>
         <title>Add a category for your products</title>
-        <meta name="description" content="Adding a category helps find youR products easier." />
+        <meta
+          name="description"
+          content="Adding a category helps find your products easier."
+        />
       </Helmet>
       <Page>
         <Texts
@@ -106,16 +106,29 @@ const Add = () => {
                     validateFields={validateFields?.name}
                     errors={errors.name}
                   />
-                  <FormInputs
-                    as="textarea"
-                    id="description"
-                    label="Description"
-                    placeholder="Add a little description"
-                    className="w-100 mb-3"
+                  <Controller
                     name="description"
-                    register={register}
-                    validateFields={validateFields?.description}
-                    errors={errors.description}
+                    control={control}
+                    rules={{ required: "Description is required" }}
+                    render={({ field }) => (
+                      <>
+                        <SimpleMDE
+                          placeholder="Description"
+                          {...field}
+                          isInvalid={!!errors.description}
+                        />
+                        <Form.Text id="description" muted className="fw-bold">
+                          A description about your category.
+                        </Form.Text>
+                        <br />
+                        <span
+                          type="invalid"
+                          className="text-start text-danger small"
+                        >
+                          {errors.description ? errors.description.message : ""}
+                        </span>
+                      </>
+                    )}
                   />
                 </CardBox>
                 <CardBox>

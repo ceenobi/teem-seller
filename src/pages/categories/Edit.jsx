@@ -10,7 +10,7 @@ import {
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useLoaderData, useNavigation } from "react-router-dom";
 import { Form, Col, Row, Image, Spinner } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { handleError, validateFields } from "@/utils";
 import { FaImage } from "react-icons/fa";
 import { useState, useEffect, useMemo } from "react";
@@ -20,6 +20,7 @@ import { categoryService } from "@/api";
 import { useStore } from "@/hooks";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { Helmet } from "react-helmet-async";
+import SimpleMDE from "react-simplemde-editor";
 
 const Edit = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -31,6 +32,7 @@ const Edit = () => {
     register,
     handleSubmit,
     setValue,
+    control, 
     formState: { errors, isSubmitting },
   } = useForm();
   const { merchant, token, setGetCategories } = useStore();
@@ -90,16 +92,11 @@ const Edit = () => {
   };
 
   const onFormSubmit = async (formData) => {
-    const credentials = {
-      image: selectedImage,
-      name: formData.name,
-      description: formData.description,
-    };
     try {
       const { status, data } = await categoryService.updateACategory(
         merchant.merchantCode,
         categoryDetail._id,
-        credentials,
+        formData,
         token
       );
       if (status === 200) {
@@ -163,17 +160,20 @@ const Edit = () => {
                     validateFields={validateFields?.name}
                     errors={errors.name}
                   />
-                  <FormInputs
-                    as="textarea"
-                    id="description"
-                    label="Description"
-                    placeholder="Add a little description"
-                    className="w-100 mb-3"
+                  <Controller
                     name="description"
-                    register={register}
-                    validateFields={validateFields?.description}
-                    errors={errors.description}
-                    rows="6"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <SimpleMDE placeholder="Description" {...field} />
+                        <Form.Control.Feedback
+                          type="invalid"
+                          className="text-start"
+                        >
+                          {errors.description ? "Description is required" : ""}
+                        </Form.Control.Feedback>
+                      </>
+                    )}
                   />
                 </CardBox>
                 <CardBox>

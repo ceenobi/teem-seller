@@ -115,7 +115,7 @@ const Add = () => {
                       validateFields={validateFields?.discountValue}
                       errors={errors.discountValue}
                       placeholder="Enter discount value"
-                      className="mb-0 w-100"
+                      className="mb-3 w-100"
                     />
                     <FormInputs
                       type="number"
@@ -124,7 +124,7 @@ const Add = () => {
                       label="Quantity"
                       register={register}
                       placeholder="Enter quantity"
-                      className="mb-0 w-100"
+                      className="mb-3 w-100"
                     />
                   </div>
                   <div className="mt-3 d-xl-flex gap-2">
@@ -135,7 +135,7 @@ const Add = () => {
                       label="Start date"
                       register={register}
                       placeholder="Enter start date"
-                      className="mb-0 w-100"
+                      className="mb-3 w-100"
                     />
                     <FormInputs
                       type="date"
@@ -144,7 +144,7 @@ const Add = () => {
                       label="Expires"
                       register={register}
                       placeholder="Enter end date"
-                      className="mb-0 w-100"
+                      className="mb-3 w-100"
                     />
                   </div>
                 </CardBox>

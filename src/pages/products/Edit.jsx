@@ -20,6 +20,7 @@ import { useFetch, useStore } from "@/hooks";
 import { categoryService, productService } from "@/api";
 import { IoCloseCircle } from "react-icons/io5";
 import { Helmet } from "react-helmet-async";
+import SimpleMDE from "react-simplemde-editor";
 
 const Edit = () => {
   const [selectedImage, setSelectedImage] = useState([]);
@@ -127,23 +128,11 @@ const Edit = () => {
   };
 
   const onFormSubmit = async (formData) => {
-    const credentials = {
-      image: selectedImage,
-      name: formData.name,
-      description: formData.description,
-      category: formData.category,
-      price: formData.price,
-      slug: formData.slug,
-      brand: formData.brand,
-      isActive: formData.isActive,
-      inStock: formData.inStock,
-      condition: formData.condition,
-    };
     try {
       const { status, data } = await productService.updateProduct(
         merchant.merchantCode,
         productDetail._id,
-        credentials,
+        formData,
         token
       );
       if (status === 200) {
@@ -243,7 +232,24 @@ const Edit = () => {
                   </div>
                   <div className="mb-3">
                     <Texts text="DESCRIPTION" size="12px" className="fw-bold" />
-                    <FormInputs
+                    <Controller
+                      name="description"
+                      control={control}
+                      render={({ field }) => (
+                        <>
+                          <SimpleMDE placeholder="Description" {...field} />
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="text-start"
+                          >
+                            {errors.description
+                              ? "Description is required"
+                              : ""}
+                          </Form.Control.Feedback>
+                        </>
+                      )}
+                    />
+                    {/* <FormInputs
                       as="textarea"
                       id="description"
                       label="Description"
@@ -253,7 +259,7 @@ const Edit = () => {
                       register={register}
                       validateFields={validateFields?.description}
                       errors={errors.description}
-                    />
+                    /> */}
                   </div>
                 </CardBox>
                 <CardBox>
@@ -301,7 +307,7 @@ const Edit = () => {
                 <CardBox>
                   <Texts text="IMAGE GALLERY" size="12px" className="fw-bold" />
                   <div className="position-relative rounded-1 bg-secondary-subtle px-4 py-5">
-                    <div className="d-flex align-items-center justify-content-center gap-2 bg-white p-3 shadow-sm w-50 mx-auto">
+                    <div className="d-flex align-items-center justify-content-center gap-2 bg-white p-3 shadow-sm mx-auto">
                       <FaCloudUploadAlt size="30px" />
                       <span className="fw-medium">
                         {selectedImage?.length > 0
