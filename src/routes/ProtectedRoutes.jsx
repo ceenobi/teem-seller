@@ -15,7 +15,7 @@ const PublicRoutes = ({ isAuth, children }) => {
   return children;
 };
 
-const MerchantRoutes = ({role, children }) => {
+const MerchantRoutes = ({ role, children }) => {
   if (role !== "seller") {
     return (
       <>

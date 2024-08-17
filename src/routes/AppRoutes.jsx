@@ -288,9 +288,6 @@ const AppRoutes = () => {
           errorElement: <Error />,
           loader: async () => {
             if (loggedInUser?.role !== "seller") {
-              toast.error("Unauthorized! You are not a merchant yet.", {
-                toastId: "unauthorized",
-              });
               return null;
             }
             return await orderService.getAllOrders(

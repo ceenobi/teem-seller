@@ -165,7 +165,7 @@ const OrderDetail = () => {
                               size="12px"
                               className="fw-bold"
                             />
-                            <div className="d-flex gap-3 align-items-center">
+                            <div className="d-flex gap-3 align-items-center mb-2 mb-md-0">
                               <LazyLoadImage
                                 effect="blur"
                                 src={item?.image[0]}
@@ -185,7 +185,7 @@ const OrderDetail = () => {
                             <Texts
                               text="QUANTITY"
                               size="12px"
-                              className="fw-bold"
+                              className="fw-bold mt-2 mt-md-0 mb-0"
                             />
                             <Texts
                               text={item.quantity}
@@ -197,7 +197,7 @@ const OrderDetail = () => {
                             <Texts
                               text="AMOUNT"
                               size="12px"
-                              className="fw-bold"
+                              className="fw-bold mt-2 mt-md-0 mb-0"
                             />
                             <Texts
                               text={formatCurrency(
@@ -526,11 +526,7 @@ const OrderDetail = () => {
             <div>
               <ActionButton
                 text={
-                  getOrderDetail?.isPaid
-                    ? "Paid"
-                    : isPaid
-                      ? "Paid"
-                      : "Not Paid"
+                  getOrderDetail?.isPaid ? "Paid" : isPaid ? "Paid" : "Not Paid"
                 }
                 size="sm"
                 className={classnames({

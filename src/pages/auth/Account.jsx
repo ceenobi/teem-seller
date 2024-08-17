@@ -193,7 +193,7 @@ const Account = () => {
                   className="fw-bold"
                 />
                 <div className="position-relative rounded-1 bg-secondary-subtle px-4 py-5">
-                  <div className="d-flex flex-wrap align-items-center justify-content-center gap-2 bg-white p-3 shadow-sm w-50 mx-auto">
+                  <div className="d-flex flex-wrap align-items-center justify-content-center gap-2 bg-white p-3 shadow-sm mx-auto">
                     <FaCloudUploadAlt size="30px" />
                     <span className="fw-medium">
                       {selectedImage ? "Change Image" : "Choose Image"}

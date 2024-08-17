@@ -68,19 +68,19 @@ export const StoreProvider = ({ children }) => {
 
   //referesh user token
   const refreshUserToken = useCallback(async () => {
+    if (!loggedInUser?.username) return; 
     try {
-      const refreshTokenResponse = await userService.getRefreshToken(
-        loggedInUser?.username
-      );
-      const accessTokenResponse = await userService.refreshToken({
-        refreshToken: refreshTokenResponse.data.refreshToken,
-      });
-      setToken(accessTokenResponse.data.accessToken);
+      const {
+        data: { refreshToken },
+      } = await userService.getRefreshToken(loggedInUser.username);
+      const {
+        data: { accessToken },
+      } = await userService.refreshToken({ refreshToken });
+      setToken(accessToken);
       getUser();
     } catch (error) {
       console.error(error);
-      // setToken(null);
-      // setMerchant(null);
+      setToken(null);
     }
   }, [loggedInUser?.username, setToken, getUser]);
 
@@ -109,7 +109,7 @@ export const StoreProvider = ({ children }) => {
         refreshUserToken();
         refresh();
       },
-      6 * 60 * 1000
+      13 * 60 * 1000
     );
 
     refresh();

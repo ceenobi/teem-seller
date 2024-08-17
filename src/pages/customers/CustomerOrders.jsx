@@ -111,7 +111,7 @@ const CustomerOrders = () => {
                   </div>
                 </div>
                 <div className="bg-secondary-subtle rounded-3 p-3">
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex flex-wrap justify-content-between">
                     <div className="text-center">
                       <Texts
                         text="LAST ORDER"
@@ -156,7 +156,7 @@ const CustomerOrders = () => {
                   <Texts
                     text={
                       <>
-                        CREATED: <b>{formatDate(customer?.createdAt)}</b> @{" "}
+                        CREATED: <b className="me-2">{formatDate(customer?.createdAt)}</b> @{" "}
                         {format(customer?.createdAt)}
                       </>
                     }
@@ -173,7 +173,7 @@ const CustomerOrders = () => {
                 />
                 {customerOrders && customerOrders.length > 0 && (
                   <div className="bg-secondary-subtle p-3 rounded-3">
-                    <div className="d-flex justify-content-between align-items-cente">
+                    <div className="d-flex flex-wrap justify-content-between">
                       <Link to={`/orders/${customerOrders[0]?._id}`}>
                         <Badge bg="secondary" text="light">
                           {customerOrders[0]?._id}
@@ -188,7 +188,7 @@ const CustomerOrders = () => {
                         text={
                           <>
                             Payment:{" "}
-                            <b>
+                            <b className="me-2">
                               {customerOrders[0]?.isPaid ? "Paid" : "Not Paid"}
                             </b>
                           </>

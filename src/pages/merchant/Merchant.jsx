@@ -134,7 +134,9 @@ const Merchant = () => {
   return (
     <>
       <Helmet>
-        <title>Merchant {merchant.merchantName}</title>
+        <title>
+          {merchant ? `Merchant ${merchant.merchantName}` : "Merchant"}
+        </title>
         <meta name="description" content="Your merchant page" />
       </Helmet>
       <Page>
