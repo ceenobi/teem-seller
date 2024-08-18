@@ -1,6 +1,6 @@
 import { Sidebar, Nav, Texts } from "@/components";
 import { Container } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
 const RootLayout = () => {
   return (
@@ -11,6 +11,11 @@ const RootLayout = () => {
           <Nav />
           <div style={{ minHeight: "95dvh" }}>
             <Outlet />
+            <ScrollRestoration
+              getKey={(location) => {
+                return location.key;
+              }}
+            />
           </div>
           <footer className="mx-4 py-2">
             <hr />
