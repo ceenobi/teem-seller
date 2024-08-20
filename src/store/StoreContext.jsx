@@ -8,6 +8,7 @@ export const ContextStore = createContext({});
 
 export const StoreProvider = ({ children }) => {
   const [token, setToken] = usePersist("sellerAccessToken", null);
+  const [getUsername, setGetUsername] = usePersist("getUsername", null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [merchant, setMerchant] = useState(null);
   const [taxData, setTaxData] = useState([]);
@@ -51,10 +52,11 @@ export const StoreProvider = ({ children }) => {
     try {
       const { data } = await userService.authUser(token);
       setLoggedInUser(data);
+      setGetUsername(data.username);
     } catch (error) {
       console.error(error);
     }
-  }, [setLoggedInUser, token]);
+  }, [setLoggedInUser, setGetUsername, token]);
 
   const getMerchant = useCallback(async () => {
     if (!isTokenValid(token)) return;
@@ -68,14 +70,14 @@ export const StoreProvider = ({ children }) => {
 
   //referesh user token
   const refreshUserToken = useCallback(async () => {
-    if (!loggedInUser?.username) return;
+    if (!getUsername) return;
     if (!isTokenValid(token)) {
       setToken(null);
     }
     try {
       const {
         data: { refreshToken },
-      } = await userService.getRefreshToken(loggedInUser.username);
+      } = await userService.getRefreshToken(getUsername);
       const {
         data: { accessToken },
       } = await userService.refreshToken({ refreshToken });
@@ -85,7 +87,7 @@ export const StoreProvider = ({ children }) => {
       console.error(error);
       // setToken(null);
     }
-  }, [loggedInUser?.username, setToken, getUser, token]);
+  }, [getUsername, setToken, getUser, token]);
 
   useEffect(() => {
     getUser();
@@ -112,7 +114,7 @@ export const StoreProvider = ({ children }) => {
         refreshUserToken();
         refresh();
       },
-      2 * 60 * 1000
+      12 * 60 * 1000
     );
 
     refresh();
